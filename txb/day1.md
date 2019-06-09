@@ -34,3 +34,7 @@ set(target,props,value)设置值触发的函数
 
 堆内存：引用类型
 栈内存：基本类型
+
+深拷贝：
+ 数组：[...],concat(),slice()
+ 对象：{..obj},Object.assign()
