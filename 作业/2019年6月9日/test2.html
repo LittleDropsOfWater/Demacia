@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+		img{
+			width: 100px;
+		}
+		</style>
+  </head>
+  <body>
+    <script>
+      //2.用async实现十张图片的依次加载和并行加载
+      function loadImg(src) {
+        return new Promise((resolve, reject) => {
+          let img = new Image();
+          img.onload = function() {
+            setTimeout(() => resolve(img), 200);
+          };
+          img.onerror = function() {
+            reject(new Error("Could not load image at " + src));
+          };
+          img.src = src;
+        });
+      }
+      var url =
+        "https://img.zcool.cn/community/012722554329c30000019ae9c3ca7e.jpg@1280w_1l_2o_100sh.jpg";
+      async function serial() {
+        var i = 0;
+        while (i < 10) {
+          i++;
+          var img = await loadImg(url);
+          console.log(i);
+          document.body.appendChild(img);
+        }
+      }
+       function parallel() {
+        async function bb(index) {
+          var img = await loadImg(url);
+          console.log(index);
+          document.body.appendChild(img);
+        }
+        for (let index = 0; index < 10; index++) {
+           bb(index);
+				}
+				
+			}
+			function sleep(time){
+				return new Promise((resolve,reject)=>{
+					setTimeout(()=>{
+						resolve()
+					},time)
+				})	
+			}
+			async function init(){
+				document.body.innerHTML='依次加载。。。';
+				await sleep(1000);
+				await serial();
+				await sleep(1000);
+				document.body.innerHTML='并行加载。。。';
+				await sleep(1000);
+				 parallel();
+			} 
+			init()
+    </script>
+  </body>
+</html>

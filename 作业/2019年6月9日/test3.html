@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function sleep(delay, cb) {
+        var start = new Date().getTime();
+        while (new Date().getTime() - start < delay) {
+          continue;
+        }
+        cb();
+      }
+
+      function Person(msg) {
+        return new Man(msg);
+      }
+      function Man(name) {
+        this.name = name;
+        this.todolist = [() => console.log("This is ", name)];
+        this.init();
+      }
+      Man.prototype.init = function() {
+        setTimeout(() => {
+          this.todolist.forEach(val => val());
+        }, 1);
+      };
+      Man.prototype.sleep = function(time) {
+        this.todolist.push(() => {
+          sleep(time, () => console.log("sleep after ", time));
+        });
+        return this;
+      };
+      Man.prototype.sleepFirst = function(time) {
+        this.todolist.unshift(() => {
+          sleep(time, () => console.log("sleep before ", time));
+        });
+        return this;
+      };
+      (Man.prototype.eat = function(food) {
+        this.todolist.push(() => console.log("eat ", food));
+        return this;
+      }),
+        (Promise.prototype = new Man());
+
+      var a = Person("大刘");
+      //This is li
+      Person("李二")
+        .sleep(1000)
+        .eat("danner");
+      //This is li
+      // ...等待1000ms
+      //sleep after 1000
+      //eat danner
+      Person("张三")
+        .sleepFirst(5000)
+        .eat("danner")
+        .sleep(3000)
+        .eat("food")
+        .sleep(3000)
+        .eat(123);
+
+      Person("赵四")
+        .eat("food")
+        .eat("danner");
+    </script>
+  </body>
+</html>

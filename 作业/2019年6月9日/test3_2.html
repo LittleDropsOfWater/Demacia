@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+			Object.assign(Promise.prototype,{
+				eat:(msg)=>console.log(`eat ${msg}`),
+				sleep:	async (time)=>{
+				return await new Promise((resolve)=>{
+							setTimeout(()=>{
+								console.log(`sleep after ${time}`)
+								resolve(msg)
+
+							},msg)
+						})
+			},sleepFirst:async (time)=>{
+				console.log(`sleep befor ${time}`)
+				return await new Promise((resolve)=>{
+							setTimeout(()=>{
+								resolve(msg)
+							},msg)
+						})
+			}
+
+		})
+			Promise.prototype.eat=(msg)=>{
+				console.log(`eat ${msg}`)
+				return  Promise.resolve(msg);
+			}
+			Promise.prototype.sleep=async (time)=>{
+				return await new Promise((resolve)=>{
+							setTimeout(()=>{
+								console.log(`sleep after ${time}`)
+								resolve(time)
+
+							},time)
+						})
+			}
+			Promise.prototype.sleepFirst=async (time)=>{
+				console.log(`sleep befor ${time}`)
+				return await new Promise((resolve)=>{
+							setTimeout(()=>{
+								resolve(time)
+							},time)
+						})
+			}
+
+      function Person(msg) {
+        console.log(msg);
+        return Promise.resolve()
+			}
+			
+      var a = Person("li");
+      //This is li
+      var b=Person("li")
+        .sleep(1000)
+        // .eat("danner");
+
+				Person("张三")
+        .sleepFirst(5000)
+        .eat("danner")
+        .sleep(3000)
+        .eat("food")
+        .sleep(3000)
+        .eat(123);
+
+      Person("赵四")
+        .eat("food")
+        .eat("danner");
+    </script>
+  </body>
+</html>

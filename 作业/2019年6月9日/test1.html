@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+	1.原生实现Promise
+	2.用async实现十张图片的依次加载和并行加载
+	3.
+	*/
+      //1.
+			function MyPromise(cb) {
+				// console.log('run MyPromise');
+				
+          var obj = {
+            state: "pending",
+						val: undefined,
+						resolve(){},
+						reject(){},
+            then(resolve, reject) {
+							// console.log(`run then`,obj,resolve,reject);
+							obj.next = MyPromise();
+								obj.resolve = resolve;
+								obj.reject = reject;
+								// console.log('next',obj.next);
+              return obj.next;
+            },
+            resolveFn(val) {
+							obj.val=obj.resolve(val);
+              obj.state = "resolve";
+            },
+            rejectFn(val) {
+							obj.val=obj.reject(val);
+							obj.state = "reject";
+            }
+					};
+					cb&&cb(obj.resolveFn, obj.rejectFn);
+					
+					var state='pending';
+					Object.defineProperty(obj,'state',{
+						get(){
+							return state;
+						},
+						set(val){
+							// console.log('stateChange',obj.next,obj.val);
+							if(obj.next){
+								obj.next.val=obj.next[val](obj.val)
+								obj.next.state=val;
+							}
+						}
+					})
+          return obj;
+        }
+
+      function loadImg(src) {
+        return MyPromise((resolve, reject) => {
+          let img = new Image();
+          img.onload = function() {
+            console.log("onload");
+						resolve(img);
+						img.onload=null;
+          };
+          img.onerror = function() {
+            console.log("onerror");
+            reject(new Error("Could not load image at " + src));
+          };
+          img.src = src;
+					console.log("loadImg");
+					
+        });
+      }
+      var url =
+				"https://img.zcool.cn/community/012722554329c30000019ae9c3ca7e.jpg@1280w_1l_2o_100sh.jpg";
+				console.log('start');
+				
+			var a = loadImg(url)
+			.then(
+        res1 => {
+          console.log("res1", res1);
+					document.body.appendChild(res1);
+          return 100;
+          //return Promise.resolve(100)
+          // return new Error('没事')
+          // return Promise.reject(new Error('没事'))
+        },
+        err1 => {
+          console.log("loadImgError1", err1);
+        }
+      )
+			.then(res2=>console.log('res2',res2),err2=>console.log('err2',err2))
+			.then(res3=>{
+				console.log('res3',res3)
+				return 'end';
+			},err3=>console.log('err3',err3))
+			.then(res4=>console.log('res4',res4),err4=>console.log('err4',err4));
+			console.log('end');
+			
+    </script>
+  </body>
+</html>
