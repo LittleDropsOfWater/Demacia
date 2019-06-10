@@ -19,7 +19,7 @@
   align-items: center;
 }
 .login_form {
-  max-width: 300px;
+  width: 280px;
 }
 .login_form_forgot {
   float: right;

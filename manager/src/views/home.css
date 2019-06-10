@@ -14,11 +14,11 @@ body,html,#root{
     width: 100%;
     height: 80px;
     border-bottom: 1px solid  #ccc;
-    box-shadow: 0 2px 8px #ccc;
+    box-shadow: 0 2px 5px #ccc;
     display: flex;
     justify-content: space-between;
     line-height: 80px;
-
+   z-index: 99;
 }
 .nav h4{
     width: 120px;
@@ -47,14 +47,25 @@ body,html,#root{
     overflow: hidden;
 }
 .left{
-    width: 30%;
-    height: 100%;
+    width: 25%;
+    overflow-y: auto;
+    z-index: 999;
 }
 .right{
-    width: 70%;
+    width: 75%;
     height: 100%;
+    display: flex;
 }
 .left>ul{
     width: 100%;
     height: 100%;
+    background: #232A41;
+}
+.content{
+    flex:1;
+}
+.right .content h4{
+    width: 100%;
+    height: 70px;
+    background: #f0f2f5;
 }

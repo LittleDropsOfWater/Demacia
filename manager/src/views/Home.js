@@ -5,9 +5,84 @@ import { Menu, Icon } from 'antd';
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            list: [
+                {
+                    "title": "试题管理",
+                    "icon": "gitlab",
+                    "id": "123",
+                    "data": [
+                        {
+                            "title": "添加试题",
+                            "id": "1230",
+                        }, {
+                            "title": "试题分类",
+                            "id": "9630",
+                        }, {
+                            "title": "查看试题",
+                            "id": "8520",
+                        }
+                    ]
+                },
+                {
+                    "title": "用户管理",
+                    "icon": "user",
+                    "id": "452",
+                    "data": [
+                        {
+                            "title": "添加用户",
+                            "id": "7410",
+                        }, {
+                            "title": "用户展示",
+                            "id": "3697",
+                        }
+                    ]
+                }, {
+                    "title": "考试管理",
+                    "icon": "file-done",
+                    "id": "175",
+                    "data": [
+                        {
+                            "title": "添加考试",
+                            "id": "8654",
+                        }, {
+                            "title": "试卷列表",
+                            "id": "1036",
+                        }
+                    ]
+                }, {
+                    "title": "班级管理",
+                    "icon": "project",
+                    "id": "1832",
+                    "data": [
+                        {
+                            "title": "班级管理",
+                            "id": "3026",
+                        }, {
+                            "title": "教室管理",
+                            "id": "7542",
+                        }, {
+                            "title": "学生管理",
+                            "id": "3620",
+                        }
+                    ]
+                }, {
+                    "title": "阅卷管理",
+                    "icon": "project",
+                    "id": "156",
+                    "data": [
+                        {
+                            "id": "8543",
+                            "title": "特批管理"
+                        }
+                    ]
+                }
+            ]
+
+        };
     }
     render() {
+        const { list } = this.state
         return (
             <div className={style.wrap}>
                 <div className={style.nav}>
@@ -29,85 +104,35 @@ class Home extends React.Component {
                             theme="dark"
                             inlineCollapsed={this.state.collapsed}
                         >
-                            <Menu.SubMenu
-                                key="sub1"
-                                title={
-                                    <span>
-                                        <Icon type="pie-chart" />
-                                        <span>Navigation One</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="5">Option 5</Menu.Item>
-                                <Menu.Item key="6">Option 6</Menu.Item>
-                                <Menu.Item key="7">Option 7</Menu.Item>
-                                <Menu.Item key="8">Option 8</Menu.Item>
-                            </Menu.SubMenu>
-                            <Menu.SubMenu
-                                key="sub2"
-                                title={
-                                    <span>
-                                        <Icon type="desktop" />
-                                        <span>Navigation One</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="5">Option 5</Menu.Item>
-                                <Menu.Item key="6">Option 6</Menu.Item>
-                                <Menu.Item key="7">Option 7</Menu.Item>
-                                <Menu.Item key="8">Option 8</Menu.Item>
-                            </Menu.SubMenu>
-                            <Menu.SubMenu
-                                key="sub3"
-                                title={
-                                    <span>
-                                        <Icon type="inbox" />
-                                        <span>Navigation One</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="5">Option 5</Menu.Item>
-                                <Menu.Item key="6">Option 6</Menu.Item>
-                                <Menu.Item key="7">Option 7</Menu.Item>
-                                <Menu.Item key="8">Option 8</Menu.Item>
-                            </Menu.SubMenu>
-                            <Menu.SubMenu
-                                key="sub4"
-                                title={
-                                    <span>
-                                        <Icon type="mail" />
-                                        <span>Navigation One</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="5">Option 5</Menu.Item>
-                                <Menu.Item key="6">Option 6</Menu.Item>
-                                <Menu.Item key="7">Option 7</Menu.Item>
-                                <Menu.Item key="8">Option 8</Menu.Item>
-                            </Menu.SubMenu>
-                            <Menu.SubMenu
-                                key="sub5"
-                                title={
-                                    <span>
-                                        <Icon type="appstore" />
-                                        <span>Navigation Two</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="9">Option 9</Menu.Item>
-                                <Menu.Item key="10">Option 10</Menu.Item>
-                                <Menu.SubMenu key="sub6" title="Submenu">
-                                    <Menu.Item key="11">Option 11</Menu.Item>
-                                    <Menu.Item key="12">Option 12</Menu.Item>
-                                </Menu.SubMenu>
-                            </Menu.SubMenu>
+                            {
+                                list.map(item => (
+                                    <Menu.SubMenu
+                                        key={item.id}
+                                        title={
+                                            <span>
+                                                <Icon type={item.icon} />
+                                                <span>{item.title}</span>
+                                            </span>
+                                        }
+                                    >
+                                        {
+                                            item.data.map(file => (
+                                                <Menu.Item key={file.id}>{file.title}</Menu.Item>
+                                            ))
+                                        }
+                                    </Menu.SubMenu>
+                                ))
+                            }
                         </Menu>
                     </div>
-                    <div className={style.right}></div>
+                    <div className={style.right}>
+                        <div className={style.content}>
+                            <h4></h4>
+                        </div>
+                    </div>
                 </main>
             </div>
         );
     }
 }
-
 export default connect()(Home);

@@ -60,7 +60,7 @@ class IndexPage extends React.Component {
 
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(IndexPage)
-
+//pie-chart   desktop   inbox   mail  appstore
 
 export default connect()(WrappedNormalLoginForm);
 
