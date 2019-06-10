@@ -1,0 +1,60 @@
+div,p,ul,ol,li,dl,dt,dd,form,table,h1,h2,h3,h4,h5,h6,input,select,textarea,span,strong,em,b,i,u,a,img,*{padding:0;margin:0;}
+body,html,#root{
+    width: 100%;
+    height: 100%;
+
+}
+.wrap{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column
+}
+.nav{
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid  #ccc;
+    box-shadow: 0 2px 8px #ccc;
+    display: flex;
+    justify-content: space-between;
+    line-height: 80px;
+
+}
+.nav h4{
+    width: 120px;
+    height: 80px;
+    margin-left: 80px;
+}
+.nav h4 img{
+    width: 100%;
+    height: 30px;
+}
+.nav h5{
+    width: 132px;
+    height: 80px;
+    margin-right: 40px;
+}
+.nav h5 img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 8px;
+}
+.main{
+    flex:1;
+    display: flex;
+    overflow: hidden;
+}
+.left{
+    width: 30%;
+    height: 100%;
+}
+.right{
+    width: 70%;
+    height: 100%;
+}
+.left>ul{
+    width: 100%;
+    height: 100%;
+}
