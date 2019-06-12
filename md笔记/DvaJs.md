@@ -38,3 +38,5 @@ Effect是一个Generator函数,内部使用yield关键字,标识每一步的操�
 dva提供多个effect函数内部的处理函数,比较常用的是`call`和`put`.
 - call:执行异步函数
 - put:发出一个Action,类似dispatch
+
+

@@ -94,4 +94,43 @@ var g = gen(1);
 g.next() // { value: 3, done: false }
 g.next() // { value: undefined, done: true }
 ```
-上述，第一个next方法的value属性，返回表达式x+2的值（3）。第二个next方法待遇参数2，这个参数可以传入Generator函数，作为上个阶段异步任务的返回结果，被函数体内的变量y接受。
+上述，第一个next方法的value属性，返回表达式x+2的值（3）。第二个next方法待遇参数2，这个参数可以传入Generator函数，作为上个阶段异步任务的返回结果，被函数体内的变量y接收。因此这一步的value属性，返回的就是2（变量y的值）。
+Generator函数内部还可以部署错误处理代码，捕获函数体外抛出的错误。
+```javascript
+function* gen(x){
+  try {
+    var y = yield x + 2;
+  } catch (e){ 
+    console.log(e);
+  }
+  return y;
+}
+
+var g = gen(1);
+g.next();
+g.throw（'出错了'）;
+// 出错了
+```
+上面代码的最后一行，Generator函数体外，使用指针对象的throw方法抛出的错误，可以被函数体内的try...catch代码块捕获。这意味着，出错的代码与处理错误的代码，实现了时间和空间上的分离，这对于异步编程无疑是很重要的。
+##Generator函数的用法
+下面讲执行一个真实的异步任务。
+
+var fetch = require('node-fetch');
+
+	function* gen(){
+		var url = 'https://api.github.com/users/github';
+		var result = yield fetch(url);
+		console.log(result.bio);
+	}
+上面代码中，Generator函数封装了一个异步操作，该操作先读取一个远程接口，然后从JSON格式的数据解析信息。就像前面说过的，这段代码非常像同步操作，除了加上了yield命令。
+执行这段代码的方法如下。
+```javascript
+var g = gen();
+var result = g.next();
+
+result.value
+	.then(data=>data.json())
+	.then(data=>g.next(data));
+```
+上面代码中，首先执行Generator函数，获取遍历器对象，然后使用enxt方法（第二行），执行异步任务的第一阶段。由于Fetch模块返回的是一个Promise对象，因此要用then方法调用下一个next方法。
+可以看到，虽然Generator函数将异步操作表示地很简洁，但是流程管理却不方便（即何时执行第一阶段、何时执行第二阶段）。
