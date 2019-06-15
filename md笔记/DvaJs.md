@@ -38,5 +38,43 @@ Effect是一个Generator函数,内部使用yield关键字,标识每一步的操�
 dva提供多个effect函数内部的处理函数,比较常用的是`call`和`put`.
 - call:执行异步函数
 - put:发出一个Action,类似dispatch
+##subscriptions
+订阅路由跳转,监听页面切换
+```JavaScript
+ subscriptions: {
+    setup({ dispatch, history }) {
+      // eslint-disable-line
+      // console.log("sbuscriptions:", a, b);
+      return history.listen(({ pathname = "/" }) => {
+        console.log("监听pathname:", pathname);
+        const token = getToken();
+        if (pathname.indexOf("/login") === -1) {
+          //不去登录页面，
+          //做token检测
+          if (!token) {
+            //利用redux做路由跳转
+            dispatch(
+              routerRedux.push({
+                // pathname:`/login`,
+                pathname: `/login`,
+                search: `redirect=${encodeURIComponent(pathname)}`
+              })
+            );
+          }
+        } else {
+          //去登录页面，如果已登录跳回首页
+          if (token) {
+            //利用redux做路由跳转
+            dispatch(
+              routerRedux.replace({
+                pathname: "/"
+              })
+            );
+          }
+        }
+      });
+    }
+  },
+```
 
 
