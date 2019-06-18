@@ -32,6 +32,7 @@ mock \| server  | 服务器或mock
 #models
 ##Effect
 Action处理器,处理异步操作,基于Redux-saga.Effect指的是副作用.根据函数式编程,计算以外的操作都属于Effect.
+saga拦截action,thunk改写action.
 ##Generator函数
 Effect是一个Generator函数,内部使用yield关键字,标识每一步的操作,**不管是异步或同步**
 ##call和put
@@ -39,6 +40,7 @@ dva提供多个effect函数内部的处理函数,比较常用的是`call`和`put
 - call:执行异步函数
 - put:发出一个Action,类似dispatch
 ##subscriptions
+
 订阅路由跳转,监听页面切换
 ```JavaScript
  subscriptions: {
