@@ -79,4 +79,27 @@ dva提供多个effect函数内部的处理函数,比较常用的是`call`和`put
   },
 ```
 
+在Effec中获取state
+ select方法
+*getUserInfo({payload},{call,put,select}){
+ var data=yield select(state=>state.user.myView);
+  const num = yield select(({num})=>num)
+}
 
+动态路由
+
+动态加载/懒加载
+借助插件dva/dynamic
+加载JS,挂载JS.
+返回Orimise的函数,Promise返回React Component
+```JavaScript
+const UserPageComponent = dynamic({
+  component: () => import('./routes/UserPage'),
+});
+```
+  CMD
+  AMD CMD
+    AMD:提前加载
+    CMD:按需加载,用时加载
+  单页面应用需要CMD.
+  SPA单页面,MPA多页面.
