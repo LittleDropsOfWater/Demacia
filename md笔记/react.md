@@ -1,21 +1,21 @@
-#setState
+# setState
 参数（对象，回调函数）
 回调函数在协调完毕，dom生成后执行。
 依靠Object.assign 合并对象
-#props
+# props
 父传子，子传父
-#cssModule
-#事件绑定
-##合成事件：
+# cssModule
+# 事件绑定
+## 合成事件：
 - 消除浏览器差异
 - 把dom和事件进行解耦
-##三种方式绑定this：
+## 三种方式绑定this：
 - bind this
 - 箭头函数  （匿名函数不相等，容易引起不必要的渲染）
 - constructor里进行bind （效率更高）
-#ref
+# ref
 获取dom，  用在组件上会获得组件实例，依靠finNodeDOM
-#redux
+# redux
 connect，
 四个参数，
 connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])

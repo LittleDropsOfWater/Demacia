@@ -1,6 +1,6 @@
-#git操作
+# git操作
 git是工作的基础,不会git就无法提交工作
-##git是什么
+## git是什么
 git是一个开源的分布式版本控制系统,快速,高效地处理从小型到大型项目的所有事物管理.
 结束了手动管理多个’版本’的史前时代
 
@@ -36,17 +36,17 @@ git checkout .		恢复所有文件
 
 第一种情况：撤销工作区的修改
 
-# git checkout 文件路径 
+#  git checkout 文件路径 
 
 第二种情况：撤销暂存区的修改
 
-# 1. git reset 文件路径 （把暂存区的修改撤回工作区）
-# 2. git checkout 文件路径 
+#  1. git reset 文件路径 （把暂存区的修改撤回工作区）
+#  2. git checkout 文件路径 
 
 第三种情况：	版本回退
 
-# git reset --hard HEAD^ //回退到上个版本
-# git reset --hard HEAD^^ //上上个版本
+#  git reset --hard HEAD^ //回退到上个版本
+#  git reset --hard HEAD^^ //上上个版本
 HEAD~n //回退到n个版本上
 
 回退到指定版本（回到现在过去）

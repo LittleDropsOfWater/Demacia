@@ -2,7 +2,7 @@ virtul DOM 也就是虚拟节点。通过JS的Object对象模拟DOM中的真实�
 
 合并DOM操作 和计算最小需要操作数
 
-#React中的虚拟DOM是什么？
+# React中的虚拟DOM是什么？
 　   虽然React中的虚拟DOM很好用，但是这是一个无心插柳的结果。 　　
 
 　  React的核心思想：一个Component拯救世界，忘掉烦恼，从此不再操心界面。
