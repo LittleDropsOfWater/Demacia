@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<script src='./ramda.min.js'></script>
+	
+<script>
+	
+	const curry = R.curry;
+      let match = curry((what, str) => str.match(what));
+      let replace = curry((what, replacement, str) =>
+        str.replace(what, replacement)
+      );
+      let filter = curry((f, ary) => ary.filter(f));
+      let split = curry((gap, str) => str.split(gap));
+      let map = curry((f, ary) => ary.map(f));
+      let hasSpaces = match(/\s+/g);
+      let findSpaces = filter(hasSpaces);
+
+      let noVowels = replace(/[aeiou]/gi);
+      let censored = noVowels("*");
+      //局部调用, 之传给函数一部分参数, 用以减少样板文件代码
+      {
+        // 用 map 简单地把参数是单个元素的函数包裹一下,就能把它转换成参数为数组的函数.
+        let getChildren = x => x.childNodes;
+        let allTheChildren = map(getChildren);
+        {
+					// 使用普通map来写
+					// 参数的顺序发生变化
+          let allTheChildren = elements => R.map(elements, getChildren);
+        }
+      }
+			// 通常不定义直接操作数组的函数,因为秩序内联调用 map(getChildren)就能达到目的.这一点同样适用于 sort, filter 以及其他的高阶函数(higher order function) (高阶函数:参数或返回值为函数的函数)
+      let words = split("");
+      let sentences = map(words);
+	</script>
+	
+</body>
+</html>
